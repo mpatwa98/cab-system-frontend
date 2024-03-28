@@ -20,6 +20,38 @@ function Page() {
 		setSelectedCarId(key);
 	};
 
+	const handleAvailable = async (id) => {
+		const selectedCarId = id;
+		const earliestTime = new Date(0);
+		try {
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_BASEURL}/cabs/update-cab`,
+				{
+					method: "PATCH",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						selectedCarId,
+						bookingTime: earliestTime,
+						exitTime: earliestTime,
+					}),
+				}
+			);
+			if (!response.ok) {
+				throw new Error("Failed to Make cab available");
+			}
+			const updatedCab = await response.json();
+			setCabs((cabs) =>
+				cabs.map((item) =>
+					item._id === updatedCab["cab"]._id ? updatedCab["cab"] : item
+				)
+			);
+		} catch (error) {
+			console.error("Error updating cabs:", error.message);
+		}
+	};
+
 	const onSubmit = async (inputData) => {
 		try {
 			const response = await fetch(
@@ -48,12 +80,14 @@ function Page() {
 			setLoading(false);
 		}
 	};
+
 	const handleCancel = () => {
 		setEdit(null);
 	};
+
 	return (
 		<div>
-			<div className="relative mt-5 mx-10 overflow-x-auto shadow-md sm:rounded-lg">
+			<div className="relative mt-5 mx-3 lg:mx-10 overflow-x-auto shadow-md sm:rounded-lg">
 				<table className="w-full text-sm text-left text-gray-500">
 					<thead className="text-xs text-gray-700 text-center uppercase bg-gray-50">
 						<tr>
@@ -67,16 +101,7 @@ function Page() {
 								Price Per Minute
 							</th>
 							<th scope="col" className="px-6 py-3">
-								Booking Time
-							</th>
-							<th scope="col" className="px-6 py-3">
-								Exit Time
-							</th>
-							<th scope="col" className="px-6 py-3">
 								Action
-							</th>
-							<th scope="col" className="px-6 py-3">
-								<span className="sr-only">Edit</span>
 							</th>
 						</tr>
 					</thead>
@@ -108,16 +133,22 @@ function Page() {
 										{cab?.cabType}
 									</td>
 									<td className="px-6 py-4">{cab?.pricePerMinute}</td>
-									<td className="px-6 py-4">{cab?.bookingTime}</td>
-									<td className="px-6 py-4">{cab?.exitTime}</td>
 									<td className="px-6 py-4">
 										{edit != cab._id ? (
-											<button
-												onClick={() => handleEdit(cab._id)}
-												className="font-medium text-blue-600 hover:underline"
-											>
-												Edit
-											</button>
+											<div className="flex justify-center items-center gap-3">
+												<button
+													onClick={() => handleEdit(cab._id)}
+													className="font-medium text-blue-600 hover:underline"
+												>
+													Edit Fare
+												</button>
+												<button
+													onClick={() => handleAvailable(cab._id)}
+													className="font-medium text-green-600 hover:underline"
+												>
+													Make it Available
+												</button>
+											</div>
 										) : (
 											<div className="font-medium text-blue-600 hover:underline">
 												<form
@@ -132,7 +163,7 @@ function Page() {
 															<input
 																{...field}
 																type="text"
-																className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+																className="bg-gray-50 min-w-16 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 															/>
 														)}
 													/>

@@ -7,6 +7,7 @@ export const useCabContext = () => useContext(CabContext);
 
 export const CabProvider = ({ children }) => {
 	const [cabs, setCabs] = useState([]);
+	const [revalidate, setRevalidate] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const [errorCaught, setErrorCaught] = useState(false);
 
@@ -30,7 +31,7 @@ export const CabProvider = ({ children }) => {
 			}
 		}
 		fetchCabs();
-	}, []);
+	}, [revalidate]);
 
 	return (
 		<CabContext.Provider
@@ -41,6 +42,8 @@ export const CabProvider = ({ children }) => {
 				setCabs,
 				setLoading,
 				setErrorCaught,
+				revalidate,
+				setRevalidate,
 			}}
 		>
 			{children}

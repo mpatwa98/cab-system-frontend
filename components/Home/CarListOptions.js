@@ -12,7 +12,7 @@ function CarListOptions({ distance }) {
 	const [selectedCar, setSelectedCar] = useState();
 	const [amount, setAmount] = useState(0);
 	const [loading, setLoading] = useState(false);
-	const { cabs } = useCabContext();
+	const { cabs, revalidate, setRevalidate } = useCabContext();
 	const { source } = useContext(SourceContext);
 	const { destination } = useContext(DestinationContext);
 	const { email } = useUserContext();
@@ -72,6 +72,7 @@ function CarListOptions({ distance }) {
 			};
 			await sendMail(booking);
 			setLoading(false);
+			setRevalidate(!revalidate);
 			router.push("/booking-status");
 		} catch (error) {
 			console.error("Error adding booking:", error.message);
@@ -87,8 +88,7 @@ function CarListOptions({ distance }) {
 				const currentTime = Date.now();
 				const isCabAvailable =
 					exitTimeInMs < currentTime ||
-					currentTime + distance * 60000 > bookingTimeInMs;
-				console.log(isCabAvailable, bookingTimeInMs, exitTimeInMs, currentTime);
+					bookingTimeInMs > currentTime + distance * 60000;
 
 				return (
 					isCabAvailable && (

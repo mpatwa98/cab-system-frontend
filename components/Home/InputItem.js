@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { DestinationContext } from "@/context/DestinationContext";
 import { SourceContext } from "@/context/SourceContext";
-import { UserContext } from "@/context/UserContext";
+import { useUserContext } from "@/context/UserContext";
 import Image from "next/image";
 
 function InputItem({ type }) {
@@ -10,7 +10,7 @@ function InputItem({ type }) {
 
 	const { source, setSource } = useContext(SourceContext);
 	const { destination, setDestination } = useContext(DestinationContext);
-	const { email, setEmail } = useContext(UserContext);
+	const { email, setEmail } = useUserContext();
 
 	useEffect(() => {
 		setPlaceholder(

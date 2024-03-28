@@ -3,7 +3,7 @@ import CarListItem from "./CarListItem";
 import { useCabContext } from "@/context/cabContext";
 import { SourceContext } from "@/context/SourceContext";
 import { DestinationContext } from "@/context/DestinationContext";
-import { UserContext } from "@/context/UserContext";
+import { useUserContext } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 
 function CarListOptions({ distance }) {
@@ -14,7 +14,7 @@ function CarListOptions({ distance }) {
 	const { cabs } = useCabContext();
 	const { source } = useContext(SourceContext);
 	const { destination } = useContext(DestinationContext);
-	const { email } = useContext(UserContext);
+	const { email } = useUserContext();
 
 	const router = useRouter();
 

@@ -26,7 +26,9 @@ export default function Header() {
 	return (
 		<div className="p-5 pb-3 pl-10 border-b-[4px] border-gray-200 flex items-center justify-between">
 			<div className="flex gap-24 items-center">
-				<Image src="/logo.png" width={50} height={50} alt="" />
+				<Link href="/">
+					<Image src="/logo.png" width={50} height={50} alt="" />
+				</Link>
 				<div className="flex gap-6 items-center">
 					{headerMenu.map((item, key) => (
 						<Link

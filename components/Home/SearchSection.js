@@ -4,11 +4,13 @@ import InputItem from "./InputItem";
 import { SourceContext } from "@/context/SourceContext";
 import { DestinationContext } from "@/context/DestinationContext";
 import CarListOptions from "./CarListOptions";
+import { useUserContext } from "@/context/UserContext";
 
 function SearchSection() {
 	const { source } = useContext(SourceContext);
 	const { destination } = useContext(DestinationContext);
 	const [distance, setDistance] = useState(null);
+	const { email } = useUserContext();
 
 	const graph = {
 		A: { B: 5, C: 7 },
@@ -43,6 +45,12 @@ function SearchSection() {
 	}
 
 	const handleDistance = (graph, source, destination) => {
+		console.log(email);
+		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailPattern.test(email)) {
+			console.log("invalid email");
+			return;
+		}
 		console.log(source, destination);
 		const distances = {};
 		const visited = new Set();

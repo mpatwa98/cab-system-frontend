@@ -96,7 +96,10 @@ function SearchSection() {
 				</button>
 			</div>
 			{distance == null ? (
-				<div></div>
+				<div className="mt-2 w-full">
+					Please fill a valid email. Source and Destination can only be
+					'A', 'B', 'C', 'D', 'E', 'F'
+				</div>
 			) : distance > 0 ? (
 				<div className="w-full">
 					<h2 className="text-[22px] font-bold">Choose a Ride</h2>

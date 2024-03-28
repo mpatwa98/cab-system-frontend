@@ -10,7 +10,7 @@ function Page() {
 		const sendMail = async () => {
 			try {
 				const response = await fetch(
-					"http://localhost:8000/api/v1/send-email",
+					`${process.env.NEXT_PUBLIC_BASEURL}/send-email`,
 					{
 						method: "POST",
 						headers: {

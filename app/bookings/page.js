@@ -10,7 +10,7 @@ function Page() {
 		const fetchAllBookings = async () => {
 			try {
 				const response = await fetch(
-					"http://localhost:8000/api/v1/bookings//all-bookings"
+					`${process.env.NEXT_PUBLIC_BASEURL}/bookings/all-bookings`
 				);
 				if (!response.ok) {
 					throw new Error("Failed to fetch booking details");

@@ -14,7 +14,7 @@ export const CabProvider = ({ children }) => {
 		async function fetchCabs() {
 			try {
 				const response = await fetch(
-					"http://localhost:8000/api/v1/cabs/all-cabs"
+					`${process.env.NEXT_PUBLIC_BASEURL}/cabs/all-cabs`
 				);
 				if (!response.ok) {
 					throw new Error("Failed to fetch cab details");

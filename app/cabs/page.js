@@ -23,7 +23,7 @@ function Page() {
 	const onSubmit = async (inputData) => {
 		try {
 			const response = await fetch(
-				"http://localhost:8000/api/v1/cabs/update-cab",
+				`${process.env.NEXT_PUBLIC_BASEURL}/cabs/update-cab`,
 				{
 					method: "PATCH",
 					headers: {
@@ -67,6 +67,12 @@ function Page() {
 								Price Per Minute
 							</th>
 							<th scope="col" className="px-6 py-3">
+								Booking Time
+							</th>
+							<th scope="col" className="px-6 py-3">
+								Exit Time
+							</th>
+							<th scope="col" className="px-6 py-3">
 								Action
 							</th>
 							<th scope="col" className="px-6 py-3">
@@ -96,12 +102,14 @@ function Page() {
 									className="w-full bg-white text-center border-b hover:bg-gray-50"
 								>
 									<td className="px-6 py-4 flex justify-center items-center font-medium text-gray-900 whitespace-nowrap">
-										<Image src={cab.image} width={100} height={100} alt="" />
+										<Image src={cab?.image} width={100} height={100} alt="" />
 									</td>
 									<td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-										{cab.cabType}
+										{cab?.cabType}
 									</td>
-									<td className="px-6 py-4">{cab.pricePerMinute}</td>
+									<td className="px-6 py-4">{cab?.pricePerMinute}</td>
+									<td className="px-6 py-4">{cab?.bookingTime}</td>
+									<td className="px-6 py-4">{cab?.exitTime}</td>
 									<td className="px-6 py-4">
 										{edit != cab._id ? (
 											<button

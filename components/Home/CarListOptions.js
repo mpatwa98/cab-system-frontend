@@ -47,6 +47,30 @@ function CarListOptions({ distance }) {
 				throw new Error("Failed to add a booking");
 			}
 			const booking = await response.json();
+			console.log(booking);
+
+			const sendMail = async (booking) => {
+				try {
+					const response = await fetch(
+						`${process.env.NEXT_PUBLIC_BASEURL}/send-email`,
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({ ...booking, distance }),
+						}
+					);
+					if (!response.ok) {
+						throw new Error("Failed to send mail");
+					}
+					const data = await response.json();
+					console.log("Email sent successfully:", data);
+				} catch (error) {
+					console.error("Error sending mail:", error.message);
+				}
+			};
+			await sendMail(booking);
 			setLoading(false);
 			router.push("/booking-status");
 		} catch (error) {
@@ -91,7 +115,7 @@ function CarListOptions({ distance }) {
 						onClick={handleBooking}
 						className="p-3 bg-black text-white rounded-lg text-center"
 					>
-						Request {selectedCar}
+						{loading ? "Loading..." : `Request ${selectedCar}`}
 					</button>
 				</div>
 			) : null}

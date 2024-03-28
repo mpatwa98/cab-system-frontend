@@ -23,7 +23,7 @@ function CarListOptions({ distance }) {
 		setLoading(true);
 		try {
 			const cabType = selectedCar;
-			const exitTime = new Date(Date.now() + distance * 60000); // Calculate exit time
+			const exitTime = new Date(Date.now() + distance * 60000);
 			const totalCost = amount;
 			const response = await fetch(
 				`${process.env.NEXT_PUBLIC_BASEURL}/bookings/add-booking`,
@@ -56,7 +56,7 @@ function CarListOptions({ distance }) {
 	};
 
 	return (
-		<div className="mt-5 p-5 overflow-auto h-[500px]">
+		<div className="mt-5 p-3 overflow-auto h-[250px] lg:h-[400px] md:h-[350px]">
 			{cabs.map((item, index) => {
 				const exitTimeInMs = new Date(item.exitTime).getTime();
 				const bookingTimeInMs = new Date(item.bookingTime).getTime();
@@ -86,7 +86,7 @@ function CarListOptions({ distance }) {
 			})}
 			{selectedCar ? (
 				<div className="max-w-lg flex justify-between fixed bottom-5 bg-white p-3 shadow-xl w-full border-[1px] items-center">
-					<h2>Make Payment For &#8377;{amount}</h2>
+					<h2>Expected Time: {distance} min</h2>
 					<button
 						onClick={handleBooking}
 						className="p-3 bg-black text-white rounded-lg text-center"

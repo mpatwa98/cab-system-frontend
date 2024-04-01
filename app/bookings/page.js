@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { formatDateTime } from "@/utils/formatDate";
 
 function Page() {
 	const [loading, setLoading] = useState(false);
@@ -54,9 +55,6 @@ function Page() {
 							<th scope="col" className="px-6 py-3">
 								Total Cost
 							</th>
-							{/* <th scope="col" className="px-6 py-3">
-								<span className="sr-only">Edit</span>
-							</th> */}
 						</tr>
 					</thead>
 					<tbody>
@@ -88,8 +86,12 @@ function Page() {
 									</td>
 									<td className="px-6 py-4">{booking?.source}</td>
 									<td className="px-6 py-4">{booking?.destination}</td>
-									<td className="px-6 py-4">{booking?.bookingTime}</td>
-									<td className="px-6 py-4">{booking?.exitTime}</td>
+									<td className="px-6 py-4">
+										{formatDateTime(booking?.bookingTime)}
+									</td>
+									<td className="px-6 py-4">
+										{formatDateTime(booking?.exitTime)}
+									</td>
 									<td className="px-6 py-4">{booking?.totalCost}</td>
 								</tr>
 							))

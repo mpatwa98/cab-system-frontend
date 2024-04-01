@@ -35,7 +35,7 @@ export default function Header() {
 	return (
 		<>
 			{/* Mobile and Tablet */}
-			<nav className="block fixed border-b-[4px] border-gray-200 top-0 z-50 w-full md:hidden bg-transparent">
+			<nav className="block fixed border-gray-200 top-0 z-50 w-full md:hidden bg-transparent">
 				<div className="container mx-auto px-8">
 					<div className="grid grid-cols-2 h-20 items-center">
 						{/* Left Side */}
@@ -80,15 +80,23 @@ export default function Header() {
 										/>
 									</button>
 									<ul>
-										{headerMenu.map((item, i) => {
+										{headerMenu.map((link, i) => {
 											return (
 												<li key={i} className="my-5">
 													<Link
-														href={item.path}
+														href={link.path}
 														className="text-xl text-slate-800"
 														onClick={toggleMenu}
 													>
-														{item.name}
+														<div className="flex items-center gap-2">
+															<Image
+																src={link.icon}
+																width={20}
+																height={20}
+																alt=""
+															/>
+															<p>{link.name}</p>
+														</div>
 													</Link>
 													<hr className="h-px my-4 bg-gray-400 border-0" />
 												</li>

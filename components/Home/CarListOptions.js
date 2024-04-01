@@ -81,7 +81,7 @@ function CarListOptions({ distance }) {
 	};
 
 	return (
-		<div className="mt-5 p-3 overflow-auto h-[250px] lg:h-[400px] md:h-[350px]">
+		<div className="mt-5 overflow-auto">
 			{cabs.map((item, index) => {
 				const exitTimeInMs = new Date(item.exitTime).getTime();
 				const bookingTimeInMs = new Date(item.bookingTime).getTime();
@@ -109,8 +109,8 @@ function CarListOptions({ distance }) {
 				);
 			})}
 			{selectedCar ? (
-				<div className="max-w-lg flex justify-between fixed bottom-5 bg-white p-3 shadow-xl w-full border-[1px] items-center">
-					<h2>Expected Time: {distance} min</h2>
+				<div className="flex max-w-[30.5rem] w-full justify-between items-center gap-2 fixed bottom-5 bg-white p-3 shadow-xl border-[1px]">
+					<h2 className="">Expected Time: {distance} min</h2>
 					<button
 						onClick={handleBooking}
 						className="p-3 bg-black text-white rounded-lg text-center"

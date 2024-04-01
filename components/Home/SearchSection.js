@@ -82,7 +82,7 @@ function SearchSection() {
 	};
 
 	return (
-		<div className="px-3">
+		<div>
 			<div className="p-2 md:pd-5 border-[2px] rounded-xl">
 				<p className="text-[20px] font-bold">Get a Ride</p>
 				<InputItem type="email" />
@@ -97,11 +97,11 @@ function SearchSection() {
 			</div>
 			{distance == null ? (
 				<div className="mt-2 w-full p-3">
-					Please fill a valid email. Source and Destination can only be
-					'A', 'B', 'C', 'D', 'E', 'F'
+					Please fill a valid email. Source and Destination can only be 'A',
+					'B', 'C', 'D', 'E', 'F'
 				</div>
 			) : distance > 0 ? (
-				<div className="w-full">
+				<div className="">
 					<h2 className="text-[22px] p-3 font-bold">Choose a Ride</h2>
 					<CarListOptions distance={distance} />
 				</div>
